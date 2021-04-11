@@ -29,32 +29,47 @@ Reference: http://www.barberdsp.com/files/Dayton%20Paper.pdf
 
 void HamShield::SSTVTestPattern(int code) { 
        SSTVVISCode(code);
+       fstream wfile;
+       wfile.open ("red.bin", ios::in);
+       while (!wfile.eof()) {
+       wfile.read(reinterpret_cast<char *>(&r), sizeof(r));
+        }
+               wfile.open ("blue.bin", ios::in);
+       while (!wfile.eof()) {
+       wfile.read(reinterpret_cast<char *>(&b), sizeof(b));
+        }
+                       wfile.open ("green.bin", ios::in);
+       while (!wfile.eof()) {
+       wfile.read(reinterpret_cast<char *>(&g), sizeof(g));
+        }
        if(code == MARTIN1) { 
             for(int x = 0; x < 257; x++){ 
 
                 toneWaitU(1200,4862);              // sync pulse (4862 uS)
                 toneWaitU(1500,572);               // sync porch (572 uS)
 
-                /* Green Channel - 146.432ms a line (we are doing 144ms) */
-                /*this is where the csv would go. in psuedocode:
-                Green = read.csv(Green.csv)
-                Red = read.csv(Red.csv)
-                Blue = read.csv(Blue.csv)
-                for row=1:256
-                for pixel=1:320
-                ToneWait(Green(pixel,row),456);
+                for(int y = 0; y < 320; y++){
+                 ToneWait(g,456);
+              }
 
                 toneWaitU(1500,572);               // color separator pulse (572 uS)
 
                 //Blue Channel - 146.432ms a line (we are doing 144ms) 
 
-                ToneWait(Blue(pixel,row),456);              // color separator pulse (572 uS)
+                for(int z = 0; z< 320; z++){
+                 ToneWait(b,456);
+              }
+
+                toneWaitU(1500,572);               // color separator pulse (572 uS)
 
                 //Red Channel - 146.432ms a line (we are doing 144ms)
 
-               ToneWait(Red(pixel,row),456);
- 
-               toneWaitU(1500,572);               // color separator pulse (572 uS)
+               for(int w = 0; w < 320; w++){
+                 ToneWait(r,456);
+              }
+
+                toneWaitU(1500,572);               // color separator pulse (572 uS)
+                )
                end
                end
                */

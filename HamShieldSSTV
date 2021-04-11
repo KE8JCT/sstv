@@ -1,6 +1,10 @@
 //Taken from Hamshield.cpp - only relavent portions.
 // Goal: read csv for frequency values and iterate for each color/row/line. 
 
+
+#include <iostream>
+#include <fstream>
+
 void HamShield::SSTVVISCode(int code) { 
     toneWait(1900,300);
     toneWait(1200,10);
@@ -54,6 +58,23 @@ void HamShield::SSTVTestPattern(int code) {
                end
                end
                */
+    
+
+//Sample Read File for SSTV
+
+            using namespace std;
+            uint32_t a;
+        int main(){
+                fstream wfile;
+             wfile.open ("red.bin", ios::in);
+             while (!wfile.eof()) {
+                     wfile.read(reinterpret_cast<char *>(&a), sizeof(a));
+                     ToneWait(a,456);
+            
+        }
+}
+
+               
              }
      }
 }
